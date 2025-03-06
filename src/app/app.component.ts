@@ -28,6 +28,11 @@ import { CustomSidenavComponent } from "./components/custom-sidenav/custom-siden
   `,
   styles: [
     ` 
+
+      :host {
+        overflow-x: hidden;
+      }
+    
       mat-toolbar {
         position: relative;
         height: 64px;
@@ -37,11 +42,6 @@ import { CustomSidenavComponent } from "./components/custom-sidenav/custom-siden
         mat-icon {
           color: white;
         }
-      }
-
-      .content {
-        display: flex;
-        padding: 24px;
       }
 
       mat-sidenav-container {

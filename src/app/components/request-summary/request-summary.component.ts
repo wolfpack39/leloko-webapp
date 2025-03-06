@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
+import { RequestSummaryCardComponent } from "../request-summary-card/request-summary-card.component";
 
 @Component({
   selector: 'app-request-summary',
-  imports: [],
+  imports: [RequestSummaryCardComponent],
   template: `
-    <p>
-      request-summary works!
-    </p>
+    <app-request-summary-card></app-request-summary-card>
   `,
   styles: ``
 })

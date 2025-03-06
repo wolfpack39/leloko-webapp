@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
+import { ShipmentCardComponent } from "../../components/shipment-card/shipment-card.component";
 
 @Component({
   selector: 'app-shipment',
-  imports: [],
+  imports: [ShipmentCardComponent],
   template: `
-    <p>
-      shipment works!
-    </p>
+    <app-shipment-card></app-shipment-card>
   `,
   styles: ``
 })
