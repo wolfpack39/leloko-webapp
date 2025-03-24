@@ -1,9 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatCardModule }  from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { Item } from '../../model/item';
+import { ItemService } from '../../pages/home/item.service';
+import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
 
 @Component({
   standalone: true,
@@ -73,7 +77,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
         </mat-card>
       </div>
 
-      <button mat-flat-button color="primary" (click)="onSubmit()">Submit</button>
+      <button mat-flat-button color="primary" [disabled]="!shipmentForm.valid" (click)="onSubmit()">Submit</button>
     </form>
     
     
@@ -160,6 +164,8 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 export class ShipmentCardComponent {
   shipmentForm: FormGroup;
 
+  items: Item[] = []; 
+
   public formObject = {
     pickupAddress: ['', Validators.required],
     destinationAddress: ['', Validators.required],
@@ -169,11 +175,17 @@ export class ShipmentCardComponent {
     height: ['', Validators.required],
   };
 
-  constructor(private fb: FormBuilder) {
+  constructor(private itemService: ItemService, private fb: FormBuilder) {
     this.shipmentForm = this.fb.group(this.formObject);
   }
 
   onSubmit() {
-    console.log(this.shipmentForm.value);
+    this.itemService.postItem(this.shipmentForm.value);
   }
+
+  readonly dialog = inject(MatDialog);
+
+  
+
 }
+

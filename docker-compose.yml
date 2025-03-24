@@ -1,0 +1,12 @@
+version: '3'
+services:
+ db:
+   image: mysql:latest
+   container_name: leloko
+   ports:
+     - "3306:3306"
+   environment:
+     - MYSQL_ROOT_PASSWORD=9803843za
+     - MYSQL_DATABASE=leloko
+   volumes:
+     - /Users/x478866/source/db:/var/lib/mysql 
