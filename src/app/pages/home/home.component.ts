@@ -2,18 +2,17 @@ import { ChangeDetectorRef, Component, inject, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatButton } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ItemService } from './item.service';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { Item } from '../../model/item';
 import { MatSort } from '@angular/material/sort';
-import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
-  imports: [MatInputModule ,MatButton, ReactiveFormsModule, MatFormFieldModule, RouterModule, MatTableModule, MatPaginatorModule, MatIcon],
+  imports: [MatInputModule ,MatButton, ReactiveFormsModule, MatFormFieldModule, RouterModule, MatTableModule, MatPaginatorModule],
   template: `
     
     <div class="main-container">
@@ -23,7 +22,7 @@ import { MatInputModule } from '@angular/material/input';
                 <mat-label>Filter</mat-label>
                 <input matInput (keyup)="applyFilter($event)" placeholder="Eg. #9384939" #input>
             </mat-form-field>
-            <button mat-flat-button color="primary" [routerLink]="['/shipping']">Creat Shipment</button>
+            <button mat-flat-button color="primary" [routerLink]="['/shipping']">Create Shipment</button>
         </div>
         
         <div class="mat-elevation-z8">

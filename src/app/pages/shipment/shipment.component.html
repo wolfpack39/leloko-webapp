@@ -1,0 +1,109 @@
+@if (loading) {
+    <mat-spinner style="margin-left: 40%; margin-top: 20%;" [diameter]="50"></mat-spinner>
+} @else {
+    <div class="main-container">
+        <div class="wrapper">
+            <h1>{{ title() }}</h1>
+        </div>
+        <form [formGroup]="shipmentForm">
+            <mat-stepper orientation="vertical" #stepper>
+                <mat-step [stepControl]="shipmentForm.get('clientName')!">
+                    <ng-template matStepLabel>Client Name</ng-template>
+                    <mat-form-field >
+                        <mat-label>Client Name</mat-label>
+                        <input matInput formControlName="clientName" />
+                    </mat-form-field>
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button matStepperNext>Next</button>
+                    </div>
+                </mat-step>
+                <mat-step [stepControl]="shipmentForm.get('plannedDate')!">
+                    <ng-template matStepLabel>Date request was received by Leloko (format: dd/mm/yyyy)</ng-template>
+                    <mat-form-field>
+                        <mat-label>Accepted On (format: dd/mm/yyyy)</mat-label>
+                        <input type="date" matInput formControlName="plannedDate" />
+                    </mat-form-field>
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button matStepperNext>Next</button>
+                    </div>
+                </mat-step>
+                <mat-step [stepControl]="shipmentForm.get('communicationChannel')!">
+                    <ng-template matStepLabel>
+                        How did the client contact us?
+                    </ng-template>
+                    <mat-form-field>
+                        <mat-label>
+                            Communication Channels (Select Option)
+                        </mat-label>
+                        <mat-select formControlName="communicationChannel">
+                            @for (channel of communicationChannel; track $index) {
+                            <mat-option [value]="channel">{{ channel }}</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                    <div>
+                        <button mat-button matStepperNext>Next</button>
+                        <button mat-button matStepperPrevious>Back</button>
+                    </div>
+                </mat-step>
+                <mat-step [stepControl]="shipmentForm.get('stillages')!">
+                    <ng-template matStepLabel>Stillages</ng-template>
+                    <mat-form-field >
+                        <mat-label>Stillages</mat-label>
+                        <input matInput formControlName="stillages" />
+                    </mat-form-field>
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button matStepperNext>Next</button>
+                    </div>
+                </mat-step>
+                <mat-step [stepControl]="shipmentForm.get('pickupAddress')!">
+                    <ng-template matStepLabel>Collection Address</ng-template>
+                    <mat-form-field >
+                        <mat-label>Collection Address</mat-label>
+                        <input matInput formControlName="pickupAddress" />
+                    </mat-form-field>
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button matStepperNext>Next</button>
+                    </div>
+                </mat-step>
+                <mat-step [stepControl]="shipmentForm.get('deliveryAddress')!">
+                    <ng-template matStepLabel>Delivery Address</ng-template>
+                    <mat-form-field >
+                        <mat-label>Delivery Address</mat-label>
+                        <input matInput formControlName="pickupAddress" />
+                    </mat-form-field>
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button matStepperNext>Next</button>
+                    </div>
+                </mat-step>
+                <mat-step [stepControl]="shipmentForm.get('driver')!">
+                    <ng-template matStepLabel>
+                        Assigned Driver
+                    </ng-template>
+                    <mat-form-field>
+                        <mat-label>
+                            Driver (Selection Option)
+                        </mat-label>
+                        <mat-select formControlName="communicationChannel">
+                            @for (driver of drivers; track $index) {
+                            <mat-option [value]="driver">{{ driver }}</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                    <div>
+                        <button mat-button matStepperNext>Next</button>
+                        <button mat-button matStepperPrevious>Back</button>
+                    </div>
+                </mat-step>
+                
+            </mat-stepper>
+            <button class="submit-button" mat-flat-button color="primary" (click)="onSubmit()">Submit</button>
+        </form>
+    </div>
+}
+

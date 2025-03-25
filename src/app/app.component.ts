@@ -14,8 +14,7 @@ import { LoginComponent } from './components/login/login.component';
   standalone: true,
   imports: [LoginComponent, MatInputModule, RouterOutlet, MatToolbarModule, MatIconButton, MatIcon, MatSidenavContainer, MatSidenav, MatSidenavContent, CustomSidenavComponent],
   template: `
-    @if (loggedIn) {
-      <mat-toolbar>
+    <mat-toolbar>
         <mat-toolbar-row>
           <button mat-icon-button (click)="collapsed.set(!collapsed())">
             <mat-icon>menu</mat-icon>
@@ -27,11 +26,10 @@ import { LoginComponent } from './components/login/login.component';
               <img src="./assets/img/LELOKO_LOKO.png"
               height="30"
               alt="African Vision Logo"
-              />
+            />
             </a>
             <ul>
               <li>
-                <a class="nav-link" href="/">Home</a>
                 
               </li>
             </ul>
@@ -56,9 +54,6 @@ import { LoginComponent } from './components/login/login.component';
         <router-outlet></router-outlet>
       </mat-sidenav-content>
     </mat-sidenav-container>
-    } @else {
-      <app-login (changed)="login($event)"/>
-    }
   `,
   styles: [
     ` 
@@ -86,36 +81,37 @@ import { LoginComponent } from './components/login/login.component';
           display: flex;
           justify-content: space-between;
           align-items: center;
-          background-color: var(--mat-sys-inverse-primary);
-          padding: 0 4em;
-          border-bottom: 1px solid var(--light-grey);
+          background-color: #edf2fb; //var(--mat-sys-inverse-primary);
+          //padding: 0 4em;
+          //border-bottom: 1px solid var(--light-grey);
           height: 4em;
 
           .nav-start {
             display: flex;
+            align-items: center;
+
             ul {
+              height: 40px;
                 display: flex;
-                justify-content: space-between;
+                //justify-content: space-between;
                 padding: 0;
                 list-style: none;
                 width: 100%;
                 padding: 0 1em;
                 align-items: center;
                 a {
-                    text-decoration: none;
-                    color: var(--medium-grey);
-                    font-size: 1.0em;
-                    font-weight: 600;
-                  }    
+                  text-decoration: none;
+                  color: var(--medium-grey);
+                  font-size: 1.0em;
+                  font-weight: 600;
+                  img {
+                    position: absolute;
+                    left: 20%;
+                  }
+                }    
 
                   
             }
-
-            img {
-                    position: relative;
-                    top: 14px;
-                    right: 200px;
-                  }
               
             ul > li {
                 display: inline-block;

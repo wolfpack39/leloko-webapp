@@ -10,8 +10,21 @@
   //   container-text-color: var(--mat-sys-secondary),
   // ));
 
+  --primary-color: var(--mat-sys-primary);
+  --dark-grey: #333333;
+  --light-brown: #2D475D;
+  --medium-grey: #636363;
+  --light-grey: #F7F7F7; /* #eeeeee */
+  --light-blue: #F7F9FC;
+  --ash: #f4f4f4;
+  --white: white;
+  --border: 1px solid var(--light-grey);
+  --shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+
   @include mat.sidenav-overrides((
-    container-background-color: var(--mat-sys-primary-container),
+    //container-background-color: #444652 //#3859B2
+    container-divider-color: rgba(211, 211, 211)
   ));
 
   @include mat.tabs-overrides((
@@ -23,6 +36,17 @@
   @include mat.card-overrides((
     subtitle-text-color: orange,
     elevated-container-color: rgba(255, 255, 255, 0.1),
+  ));
+
+  @include mat.stepper-overrides((
+    header-icon-foreground-color: orange,
+    header-selected-state-icon-background-color: green,
+    header-label-text-size: 1.0em,
+    header-selected-state-label-text-size: 0.9em
+  ));
+
+  @include mat.button-overrides((
+    filled-label-text-size: 1em
   ));
 }
 

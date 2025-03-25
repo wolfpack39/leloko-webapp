@@ -36,50 +36,56 @@ export type MenuItem = {  // Type definition
     :host * {
       transition: all 500ms ease-in-out;
     }
+
     mat-nav-list {
       display: flex;
       flex-direction: column;
-      padding: 0;
+      padding: 2em 0;
     }
+
     a {
       display: flex;
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      padding: 14px;
+      padding: 0.8em;
       text-decoration: none;
-      color: var(--mat-sys-on-background);
+      color: var(--mat-sys-primary);
+      margin: 0;
     }
     a:hover {
       background-color: #ccc;
     } 
 
+    span {
+      font-size: 1.0em;
+      font-weight: 600;
+      color: var(--mat-sys-primary);
+    }
+
     mat-icon {
       margin: 0 8px 0 0;
       
     }
-    span {
-        font-size: 1em;
-        font-weight: 600;
-      }
+    
 
-      .active {
-        background-color: #ccc;
-      }
+    .active {
+      background-color: #ccc;
+    }
 
-      .hide-sidenav-text {
-        opacity: 0;   
-      }
+    .hide-sidenav-text {
+      opacity: 0;   
+    }
 
-      .menu-item {
-        border-left: 5px solid rgba(0, 0, 0, 0);
-        transition: all 500ms ease-in-out;
-      }
+    .menu-item {
+      border-left: 5px solid rgba(0, 0, 0, 0);
+      transition: all 500ms ease-in-out;
+    }
 
-      .selected-menu-item {
-        border-left: 5px solid var(--mat-sys-on-background);     
-        background-color: rgba(0, 0, 0, 0.1);
-      }
+    .selected-menu-item {
+      border-left: 5px solid var(--mat-sys-on-background);     
+      background-color: rgba(0, 0, 0, 0.1);
+    }
   `
 
 })
