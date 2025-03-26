@@ -96,12 +96,32 @@
                         </mat-select>
                     </mat-form-field>
                     <div>
-                        <button mat-button matStepperNext>Next</button>
                         <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button matStepperNext>Next</button>
+                        </div>
+                </mat-step>
+                <mat-step [stepControl]="shipmentForm.get('vehicle')!">
+                    <ng-template matStepLabel>
+                        Select Vehicle
+                    </ng-template>
+                    <mat-form-field>
+                        <mat-label>
+                            Vehicle (Selection Option)
+                        </mat-label>
+                        <mat-select formControlName="communicationChannel">
+                            @for (vehicle of vehicles; track $index) {
+                            <mat-option [value]="vehicle">{{ vehicle }}</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button matStepperNext>Next</button>
                     </div>
                 </mat-step>
                 
             </mat-stepper>
+            
             <button class="submit-button" mat-flat-button color="primary" (click)="onSubmit()">Submit</button>
         </form>
     </div>

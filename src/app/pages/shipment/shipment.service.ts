@@ -1,16 +1,16 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Item } from '../../model/item';
+import { Shipment } from '../../model/item';
 import { MatDialog } from '@angular/material/dialog';
 import { SuccessDialogComponent } from '../../components/success-dialog/success-dialog.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ItemService {
+export class ShipmentService {
 
-  private apiUrl = 'http://localhost:3000/items';
+  private apiUrl = 'http://localhost:3000/shipments';
 
   dialog = inject(MatDialog);
 
@@ -24,7 +24,7 @@ export class ItemService {
     });
   }
   
-  getItems(page: number, limit: number): Observable<any> {
+  getShipments(page: number, limit: number): Observable<any> {
     return this.http.get(`${this.apiUrl}?page=${page}&limit=${limit}`);
   }
 
@@ -32,9 +32,9 @@ export class ItemService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  postItem(item: Item) {
-    console.log(item);
-    this.http.post<Item>(this.apiUrl, item, this.httpOptions).subscribe({
+  postShipment(shipment: Shipment) {
+    console.log(shipment);
+    this.http.post<Shipment>(this.apiUrl, shipment, this.httpOptions).subscribe({
       next: (response) => {
         console.log('Post created successfully:', response);
       },

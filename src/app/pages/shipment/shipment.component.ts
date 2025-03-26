@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
-import { ItemService } from '../home/item.service';
+import { ShipmentService } from './shipment.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
@@ -32,6 +32,7 @@ export class ShipmentComponent {
   communicationChannel = ['WhatsApp', 'Email', 'Call', 'Other'];
 
   drivers = ['Michael Moloto', 'Kabelo Lehobye', 'Mpho Molete', 'Other'];
+  vehicles = ['1.3 Ton Bakkie', '4 Ton Half Truck', '8 Ton Truck', 'Other'];
 
   formObject = {
     clientName: new FormControl({
@@ -58,6 +59,10 @@ export class ShipmentComponent {
       value: '',
       disabled: false
     }),
+    vehicle: new FormControl({
+      value: '',
+      disabled: false
+    }),
     plannedDate: new FormControl({
       value: '',
       disabled: false
@@ -67,7 +72,7 @@ export class ShipmentComponent {
 
   readonly dialog = inject(MatDialog);
 
-  constructor(private fb: FormBuilder, private itemService: ItemService) { 
+  constructor(private fb: FormBuilder, private shipmentService: ShipmentService) { 
     this.shipmentForm = this.fb.group(this.formObject as any);
   }
 
@@ -85,7 +90,7 @@ export class ShipmentComponent {
     }, 500)
     
     setTimeout(() => {
-      this.itemService.postItem(this.shipmentForm.value);
+      this.shipmentService.postShipment(this.shipmentForm.value);
       this.loading = false;
     }, 3000)
   }

@@ -5,8 +5,8 @@ import { MatButton } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Item } from '../../model/item';
-import { ItemService } from '../../pages/home/item.service';
+import { Shipment } from '../../model/item';
+import { ShipmentService } from '../../pages/shipment/shipment.service';
 import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
 
 @Component({
@@ -164,7 +164,7 @@ import { SuccessDialogComponent } from '../success-dialog/success-dialog.compone
 export class ShipmentCardComponent {
   shipmentForm: FormGroup;
 
-  items: Item[] = []; 
+  items: Shipment[] = []; 
 
   public formObject = {
     pickupAddress: ['', Validators.required],
@@ -175,12 +175,12 @@ export class ShipmentCardComponent {
     height: ['', Validators.required],
   };
 
-  constructor(private itemService: ItemService, private fb: FormBuilder) {
+  constructor(private shipmentService: ShipmentService, private fb: FormBuilder) {
     this.shipmentForm = this.fb.group(this.formObject);
   }
 
   onSubmit() {
-    this.itemService.postItem(this.shipmentForm.value);
+    this.shipmentService.postItem(this.shipmentForm.value);
   }
 
   readonly dialog = inject(MatDialog);

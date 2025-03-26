@@ -3,11 +3,11 @@ import { RouterModule } from '@angular/router';
 import { MatButton } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ItemService } from './item.service';
+import { ShipmentService } from '../shipment/shipment.service';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
-import { Item } from '../../model/item';
+import { Shipment } from '../../model/item';
 import { MatSort } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 
@@ -29,9 +29,9 @@ import { MatInputModule } from '@angular/material/input';
             <table mat-table [dataSource]="dataSource" matSort>
           
               <!-- ID Column -->
-              <ng-container matColumnDef="shipmentId">
+              <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Shipment ID </th>
-                <td mat-cell *matCellDef="let row"> {{ row.shipmentId }} </td>
+                <td mat-cell *matCellDef="let row"> {{ row.id }} </td>
               </ng-container>
           
               <!-- Progress Column -->
@@ -119,14 +119,14 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class HomeComponent {
   items = [];
-  dataSource: MatTableDataSource<Item> = new MatTableDataSource();
+  dataSource: MatTableDataSource<Shipment> = new MatTableDataSource();
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
   
-  displayedColumns: string[] = ['shipmentId', 'weight', 'length', 'width', 'height', 'pickupAddress', 'destinationAddress'];
+  displayedColumns: string[] = ['id', 'weight', 'length', 'width', 'height', 'pickupAddress', 'destinationAddress'];
   
   dataLoaded = false;
 
@@ -157,7 +157,7 @@ export class HomeComponent {
     }
   }
 
-  constructor(private itemService: ItemService, private _router: Router, private cdr: ChangeDetectorRef) {  
+  constructor(private shipmentService: ShipmentService, private _router: Router, private cdr: ChangeDetectorRef) {  
     
   }
 
@@ -179,7 +179,7 @@ export class HomeComponent {
   }
 
   getItems(): void {
-    this.itemService.getItems(this.pageIndex + 1, this.pageSize)
+    this.shipmentService.getShipments(this.pageIndex + 1, this.pageSize)
       .subscribe((response) => {
         this.items = response.data;
         this.totalItems = response.total;

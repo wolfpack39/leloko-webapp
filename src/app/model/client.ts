@@ -1,6 +1,9 @@
+import { Job } from "./job";
+
 export interface Client {
-    clientId: string;
-    clientName: string;
-    clientAddress: string;
-    clientContact?: string;
+    id: string;
+    name: string;
+    address: string;
+    contactNumber?: string;
+    jobs?: Job[]
 }

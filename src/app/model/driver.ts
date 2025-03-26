@@ -1,8 +1,8 @@
 import { Job } from "./job";
 
 export interface Driver {
-    driverId: string;
-    driverName: string;
-    driverSurname: string;
+    id: string;
+    firstName: string;
+    lastName: string;
     jobs: Job[];
 }
