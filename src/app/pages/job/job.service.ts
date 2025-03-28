@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
 })
 export class JobService {
 
-  private apiUrl = 'http://localhost:8080/jobs';
-  private jobPostUrl = 'http://localhost:8080/job';
+  private apiUrl = 'http://localhost:8080/';
+  private jobPostUrl = 'http://localhost:8080/';
 
   dialog = inject(MatDialog);
 
@@ -40,16 +40,23 @@ export class JobService {
   }
   
   getJobs(page: number, limit: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}?page=${page}&limit=${limit}`);
+    return this.http.get(`${this.apiUrl + "jobs"}?page=${page}&limit=${limit}`);
   }
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
+  getJobById(id: number) {
+    return this.http.get<any>(this.apiUrl + '/jobs', {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      params: new HttpParams().set('id', id),
+    });
+  }
+
   postJob(job: Job) {
     console.log(job);
-    this.http.post<Job>(this.jobPostUrl, job, this.httpOptions).subscribe({
+    this.http.post<Job>(this.apiUrl + '/job', job, this.httpOptions).subscribe({
       next: (response) => {
         this.openSuccessDialog('1500', '1000');
         this._router.navigate(['/home']);

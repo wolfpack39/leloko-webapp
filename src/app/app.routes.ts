@@ -26,6 +26,14 @@ export const routes: Routes = [
         title: 'Home',
     },
     {
+        path: 'shipping/detail/:id',
+        loadComponent: () => 
+            import('./components/job-details/job-details.component').then(
+                (c) => c.JobDetailsComponent
+            ),
+        data: { title: 'Job Details', showInNavBar: false },
+    },
+    {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',

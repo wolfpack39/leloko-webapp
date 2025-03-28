@@ -11,9 +11,14 @@ import { MatSort } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { Job } from '../../model/job';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  imports: [MatProgressSpinner, MatInputModule ,MatButton, ReactiveFormsModule, MatFormFieldModule, RouterModule, MatTableModule, MatPaginatorModule],
+  imports: [MatProgressSpinner, 
+    MatInputModule,
+    MatIconModule, 
+    MatButton, 
+    ReactiveFormsModule, MatFormFieldModule, RouterModule, MatTableModule, MatPaginatorModule],
   template: `
     @if(loading) {
       <mat-spinner style="margin-left: 40%; margin-top: 20%;" [diameter]="50"></mat-spinner>
@@ -88,6 +93,11 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
                 <td mat-cell *matCellDef="let row"> {{ row.status }} </td>
               </ng-container>
+
+              <ng-container  matColumnDef="details">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Manage Details</th>
+                <td mat-cell *matCellDef="let row"> <button  mat-button  color="primary" (click)="getJobById(row.id)"> <mat-icon>more_horiz</mat-icon></button></td>
+              </ng-container>
           
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -151,7 +161,7 @@ export class HomeComponent {
   sort!: MatSort;
   
   displayedColumns: string[] = ['id', 'submitDate', 'communicationChannel', 'stillages', 'pickupAddress', 'destinationAddress', 'plannedStartDate', 
-    'actualStartDate', 'actualEndDate', 'user_id', 'status' ];
+    'actualStartDate', 'actualEndDate', 'user_id', 'status', 'details' ];
   
   loading = true;
 
@@ -219,5 +229,10 @@ export class HomeComponent {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  getJobById(id: number) {
+    this.jobService.getJobById(id);
+    this._router.navigate(['/shipping/detail', id]);
+  } 
 
 } 
