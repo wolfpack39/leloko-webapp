@@ -5,12 +5,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
-import { ShipmentService } from './shipment.service';
+import { JobService } from './job.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-shipment',
+  selector: 'app-job',
   imports: [
     ReactiveFormsModule, 
     MatStepperModule, 
@@ -20,22 +21,22 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     MatSelectModule,
     MatProgressSpinner
   ],
-  templateUrl: './shipment.component.html',
-  styleUrl: './shipment.component.scss'
+  templateUrl: './job.component.html',
+  styleUrl: './job.component.scss'
 })
-export class ShipmentComponent {
-  title = signal('Create Shipment Request');
+export class JobComponent {
+  title = signal('Job Request');
   shipmentForm: FormGroup
 
   loading = true;
 
   communicationChannel = ['WhatsApp', 'Email', 'Call', 'Other'];
 
-  drivers = ['Michael Moloto', 'Kabelo Lehobye', 'Mpho Molete', 'Other'];
+  users = ['Michael Moloto', 'Kabelo Lehobye', 'Mpho Molete', 'Other'];
   vehicles = ['1.3 Ton Bakkie', '4 Ton Half Truck', '8 Ton Truck', 'Other'];
 
   formObject = {
-    clientName: new FormControl({
+    submitDate: new FormControl({
       value: '',
       disabled: false
     }),
@@ -55,7 +56,7 @@ export class ShipmentComponent {
       value: '',
       disabled: false
     }),
-    driver: new FormControl({
+    user: new FormControl({
       value: '',
       disabled: false
     }),
@@ -63,8 +64,20 @@ export class ShipmentComponent {
       value: '',
       disabled: false
     }),
-    plannedDate: new FormControl({
+    plannedStartDate: new FormControl({
       value: '',
+      disabled: false
+    }),
+    actualStartDate: new FormControl({
+      value: '',
+      disabled: false
+    }),
+    actualEndDate: new FormControl({
+      value: '',
+      disabled: false
+    }),
+    status: new FormControl({
+      value: 'Pending',
       disabled: false
     }),
     dateSubmitted: [new Date().toISOString().slice(0, 10), Validators.required]
@@ -72,7 +85,7 @@ export class ShipmentComponent {
 
   readonly dialog = inject(MatDialog);
 
-  constructor(private fb: FormBuilder, private shipmentService: ShipmentService) { 
+  constructor(private fb: FormBuilder, private jobService: JobService) { 
     this.shipmentForm = this.fb.group(this.formObject as any);
   }
 
@@ -80,7 +93,7 @@ export class ShipmentComponent {
     setTimeout(() => {
       this.loading = false;
     }, 1000);
-    
+    this.jobService.getJobs
   }
 
   onSubmit() {
@@ -90,7 +103,7 @@ export class ShipmentComponent {
     }, 500)
     
     setTimeout(() => {
-      this.shipmentService.postShipment(this.shipmentForm.value);
+      this.jobService.postJob(this.shipmentForm.value);
       this.loading = false;
     }, 3000)
   }

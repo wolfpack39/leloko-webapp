@@ -3,26 +3,29 @@ import { RouterModule } from '@angular/router';
 import { MatButton } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ShipmentService } from '../shipment/shipment.service';
+import { JobService } from '../job/job.service';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
-import { Shipment } from '../../model/item';
 import { MatSort } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
+import { Job } from '../../model/job';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
-  imports: [MatInputModule ,MatButton, ReactiveFormsModule, MatFormFieldModule, RouterModule, MatTableModule, MatPaginatorModule],
+  imports: [MatProgressSpinner, MatInputModule ,MatButton, ReactiveFormsModule, MatFormFieldModule, RouterModule, MatTableModule, MatPaginatorModule],
   template: `
-    
-    <div class="main-container">
-        <h2>Shipments</h2>
+    @if(loading) {
+      <mat-spinner style="margin-left: 40%; margin-top: 20%;" [diameter]="50"></mat-spinner>
+    } @else {
+      <div class="main-container">
+        <h2>Jobs Status Report</h2>
         <div class="spacer">
             <mat-form-field>
                 <mat-label>Filter</mat-label>
                 <input matInput (keyup)="applyFilter($event)" placeholder="Eg. #9384939" #input>
             </mat-form-field>
-            <button mat-flat-button color="primary" [routerLink]="['/shipping']">Create Shipment</button>
+            <button mat-flat-button color="primary" [routerLink]="['/shipping']">Create Job</button>
         </div>
         
         <div class="mat-elevation-z8">
@@ -30,40 +33,60 @@ import { MatInputModule } from '@angular/material/input';
           
               <!-- ID Column -->
               <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Shipment ID </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Job ID </th>
                 <td mat-cell *matCellDef="let row"> {{ row.id }} </td>
               </ng-container>
           
               <!-- Progress Column -->
-              <ng-container matColumnDef="weight">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Weight </th>
-                <td mat-cell *matCellDef="let row"> {{ row.weight }} </td>
+              <ng-container matColumnDef="submitDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Submitted </th>
+                <td mat-cell *matCellDef="let row"> {{ row.submitDate }} </td>
               </ng-container>
 
-              <ng-container matColumnDef="length">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Length </th>
-                <td mat-cell *matCellDef="let row"> {{row.length}} </td>
-              </ng-container>
-          
-              <!-- Name Column -->
-              <ng-container matColumnDef="width">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Width</th>
-                <td mat-cell *matCellDef="let row"> {{ row.width }} </td>
+              <ng-container matColumnDef="communicationChannel">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Communication Channel </th>
+                <td mat-cell *matCellDef="let row"> {{ row.communicationChannel }} </td>
               </ng-container>
 
-              <ng-container matColumnDef="height">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Height </th>
-                <td mat-cell *matCellDef="let row"> {{ row.height }} </td>
+              <ng-container matColumnDef="stillages">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Stillages </th>
+                <td mat-cell *matCellDef="let row"> {{row.stillages }} </td>
               </ng-container>
 
               <ng-container matColumnDef="pickupAddress">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Pickup Address </th>
-                <td mat-cell *matCellDef="let row"> {{ row.pickupAddress }} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Collection Address </th>
+                <td mat-cell *matCellDef="let row"> {{row.pickupAddress }} </td>
+              </ng-container>
+          
+              <!-- Name Column -->
+              <ng-container matColumnDef="destinationAddress">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Destination Address</th>
+                <td mat-cell *matCellDef="let row"> {{ row.destinationAddress }} </td>
+              </ng-container>
+  
+              <ng-container matColumnDef="plannedStartDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Proposed Delivery Date </th>
+                <td mat-cell *matCellDef="let row"> {{ row.plannedStartDate }} </td>
               </ng-container>
 
-              <ng-container matColumnDef="destinationAddress">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Destination Address </th>
-                <td mat-cell *matCellDef="let row"> {{ row.destinationAddress }} </td>
+              <ng-container matColumnDef="actualStartDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Actual Start Date </th>
+                <td mat-cell *matCellDef="let row"> {{ row.actualStartDate }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="actualEndDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Actual Delivery Date </th>
+                <td mat-cell *matCellDef="let row"> {{ row.actualEndDate }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="user_id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Assigned Driver </th>
+                <td mat-cell *matCellDef="let row"> {{ row.user_id }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                <td mat-cell *matCellDef="let row"> {{ row.status }} </td>
               </ng-container>
           
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -89,8 +112,9 @@ import { MatInputModule } from '@angular/material/input';
             </mat-paginator>
           </div>
           
-    </div>
-
+      </div>
+    }
+    
   `,
   styles: `
     .main-container {
@@ -119,16 +143,17 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class HomeComponent {
   items = [];
-  dataSource: MatTableDataSource<Shipment> = new MatTableDataSource();
+  dataSource: MatTableDataSource<Job> = new MatTableDataSource();
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
   
-  displayedColumns: string[] = ['id', 'weight', 'length', 'width', 'height', 'pickupAddress', 'destinationAddress'];
+  displayedColumns: string[] = ['id', 'submitDate', 'communicationChannel', 'stillages', 'pickupAddress', 'destinationAddress', 'plannedStartDate', 
+    'actualStartDate', 'actualEndDate', 'user_id', 'status' ];
   
-  dataLoaded = false;
+  loading = true;
 
   totalItems = 0;
   length = 10000;
@@ -148,7 +173,7 @@ export class HomeComponent {
     this.length = e.length;
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
-    this.getItems();
+    this.getJobs();
   }
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -157,13 +182,15 @@ export class HomeComponent {
     }
   }
 
-  constructor(private shipmentService: ShipmentService, private _router: Router, private cdr: ChangeDetectorRef) {  
+  constructor(private jobService: JobService, private _router: Router, private cdr: ChangeDetectorRef) {  
     
   }
 
   ngOnInit() {
-    this.getItems();
-    
+    setTimeout(() => {
+      this.loading = false;
+    }, 1000);
+    this.getJobs();
   }
 
   ngAfterViewInit(): void {
@@ -173,22 +200,20 @@ export class HomeComponent {
 
   ngAfterContentChecked(): void {
     setTimeout(() => {
-      this.dataLoaded = true
+      this.loading = false;
     }, 1000)
     this.cdr.detectChanges();
   }
 
-  getItems(): void {
-    this.shipmentService.getShipments(this.pageIndex + 1, this.pageSize)
+  getJobs(): void {
+    this.jobService.getJobs(this.pageIndex + 1, this.pageSize)
       .subscribe((response) => {
-        this.items = response.data;
+        this.items = response;
         this.totalItems = response.total;
         console.log(this.items);
-        this.dataSource = new MatTableDataSource(response.data);
+        this.dataSource = new MatTableDataSource(response);
       });
   }
-
-  
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

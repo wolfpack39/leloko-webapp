@@ -7,22 +7,12 @@
         </div>
         <form [formGroup]="shipmentForm">
             <mat-stepper orientation="vertical" #stepper>
-                <mat-step [stepControl]="shipmentForm.get('clientName')!">
-                    <ng-template matStepLabel>Client Name</ng-template>
-                    <mat-form-field >
-                        <mat-label>Client Name</mat-label>
-                        <input matInput formControlName="clientName" />
-                    </mat-form-field>
-                    <div>
-                        <button mat-button matStepperPrevious>Back</button>
-                        <button mat-button matStepperNext>Next</button>
-                    </div>
-                </mat-step>
-                <mat-step [stepControl]="shipmentForm.get('plannedDate')!">
+                
+                <mat-step [stepControl]="shipmentForm.get('submitDate')!">
                     <ng-template matStepLabel>Date request was received by Leloko (format: dd/mm/yyyy)</ng-template>
                     <mat-form-field>
                         <mat-label>Accepted On (format: dd/mm/yyyy)</mat-label>
-                        <input type="date" matInput formControlName="plannedDate" />
+                        <input type="date" matInput formControlName="submitDate"/>
                     </mat-form-field>
                     <div>
                         <button mat-button matStepperPrevious>Back</button>
@@ -70,18 +60,51 @@
                         <button mat-button matStepperNext>Next</button>
                     </div>
                 </mat-step>
-                <mat-step [stepControl]="shipmentForm.get('deliveryAddress')!">
+                <mat-step [stepControl]="shipmentForm.get('destinationAddress')!">
                     <ng-template matStepLabel>Delivery Address</ng-template>
                     <mat-form-field >
                         <mat-label>Delivery Address</mat-label>
-                        <input matInput formControlName="pickupAddress" />
+                        <input matInput formControlName="destinationAddress" />
                     </mat-form-field>
                     <div>
                         <button mat-button matStepperPrevious>Back</button>
                         <button mat-button matStepperNext>Next</button>
                     </div>
                 </mat-step>
-                <mat-step [stepControl]="shipmentForm.get('driver')!">
+                <mat-step [stepControl]="shipmentForm.get('plannedStartDate')!">
+                    <ng-template matStepLabel>Proposed Start Date (format: dd/mm/yyyy)</ng-template>
+                    <mat-form-field>
+                        <mat-label>Start Date (format: dd/mm/yyyy)</mat-label>
+                        <input type="date" matInput formControlName="plannedStartDate" />
+                    </mat-form-field>
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button matStepperNext>Next</button>
+                    </div>
+                </mat-step>
+                <mat-step [stepControl]="shipmentForm.get('actualStartDate')!">
+                    <ng-template matStepLabel>Actual Start Date (format: yyyy/mm/dd)</ng-template>
+                    <mat-form-field>
+                        <mat-label>Started On (format: yyyy/mm/dd)</mat-label>
+                        <input type="date" matInput formControlName="actualStartDate" />
+                    </mat-form-field>
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button matStepperNext>Next</button>
+                    </div>
+                </mat-step>
+                <mat-step [stepControl]="shipmentForm.get('actualEndDate')!">
+                    <ng-template matStepLabel>End Date (format: yyyy/mm/dd)</ng-template>
+                    <mat-form-field>
+                        <mat-label>Finished On (format: yyyy/mm/dd)</mat-label>
+                        <input type="date" matInput formControlName="actualEndDate" />
+                    </mat-form-field>
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button matStepperNext>Next</button>
+                    </div>
+                </mat-step>
+                <mat-step [stepControl]="shipmentForm.get('user')!">
                     <ng-template matStepLabel>
                         Assigned Driver
                     </ng-template>
@@ -90,8 +113,8 @@
                             Driver (Selection Option)
                         </mat-label>
                         <mat-select formControlName="communicationChannel">
-                            @for (driver of drivers; track $index) {
-                            <mat-option [value]="driver">{{ driver }}</mat-option>
+                            @for (user of users; track $index) {
+                            <mat-option [value]="user">{{ user }}</mat-option>
                             }
                         </mat-select>
                     </mat-form-field>

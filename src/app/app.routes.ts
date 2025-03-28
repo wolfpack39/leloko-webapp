@@ -20,8 +20,8 @@ export const routes: Routes = [
     {
         path: 'shipping',
         loadComponent: () => 
-            import('./pages/shipment/shipment.component').then(
-                (c) => c.ShipmentComponent
+            import('./pages/job/job.component').then(
+                (c) => c.JobComponent
             ),
         title: 'Home',
     },

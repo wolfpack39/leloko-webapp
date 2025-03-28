@@ -5,8 +5,8 @@ import { MatButton } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Shipment } from '../../model/item';
-import { ShipmentService } from '../../pages/shipment/shipment.service';
+import { Job } from '../../model/job';
+import { JobService } from '../../pages/job/job.service';
 import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
 
 @Component({
@@ -46,7 +46,7 @@ import { SuccessDialogComponent } from '../success-dialog/success-dialog.compone
       </div>
 
       <div class="shipping-section">
-        <h1>Shipment Details</h1>
+        <h1>Job Details</h1>
         <mat-card>
           
           <mat-card-content>
@@ -164,7 +164,7 @@ import { SuccessDialogComponent } from '../success-dialog/success-dialog.compone
 export class ShipmentCardComponent {
   shipmentForm: FormGroup;
 
-  items: Shipment[] = []; 
+  items: Job[] = []; 
 
   public formObject = {
     pickupAddress: ['', Validators.required],
@@ -175,17 +175,15 @@ export class ShipmentCardComponent {
     height: ['', Validators.required],
   };
 
-  constructor(private shipmentService: ShipmentService, private fb: FormBuilder) {
+  readonly dialog = inject(MatDialog);
+
+  constructor(private jobService: JobService, private fb: FormBuilder) {
     this.shipmentForm = this.fb.group(this.formObject);
   }
 
   onSubmit() {
-    this.shipmentService.postItem(this.shipmentForm.value);
+    this.jobService.postJob(this.shipmentForm.value);
   }
-
-  readonly dialog = inject(MatDialog);
-
-  
 
 }
 
