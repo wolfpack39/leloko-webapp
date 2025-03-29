@@ -1,0 +1,32 @@
+@if (loading) {
+    <mat-spinner style="margin-left: 40%; margin-top: 20%;" [diameter]="50"></mat-spinner>
+} @else {
+    <button style="padding: 0.4em;" mat-button (click)="back()">
+        <mat-icon class="icon-display">arrow_back</mat-icon>
+    </button>
+    <div style="padding: 1em;"  class="main-container">
+        
+    
+        <div class="job-card">
+            <div class="wrapper">
+                <h1>Manage Job: {{ job?.id }}</h1>
+            </div>
+        
+            <p>Client: {{ job?.client?.name }}</p>
+            <p>Status: {{ job?.status }}</p>
+            <p>
+                Vehicle Assigned: {{ job?.vehicle }}
+            </p>
+            <p>Assigned Driver: 
+                @if (job?.driver) {
+                    {{ job?.driver?.firstName}} {{ job?.driver?.lastName }}
+                } @else {
+                    No driver assigned to this job yet!
+                }
+        
+            </p>
+        </div>
+    
+    </div>
+}
+

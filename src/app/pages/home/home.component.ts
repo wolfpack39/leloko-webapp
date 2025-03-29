@@ -232,7 +232,7 @@ export class HomeComponent {
 
   getJobById(id: number) {
     this.jobService.getJobById(id);
-    this._router.navigate(['/shipping/detail', id]);
+    this._router.navigate(['/home/detail', id]);
   } 
 
 } 
