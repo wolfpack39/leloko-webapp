@@ -44,7 +44,7 @@ export class JobComponent {
       value: '',
       disabled: false
     }),
-    stillages: new FormControl({
+    comments: new FormControl({
       value: '',
       disabled: false
     }),

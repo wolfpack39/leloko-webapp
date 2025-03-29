@@ -53,9 +53,9 @@ import { MatIconModule } from '@angular/material/icon';
                 <td mat-cell *matCellDef="let row"> {{ row.communicationChannel }} </td>
               </ng-container>
 
-              <ng-container matColumnDef="stillages">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Stillages </th>
-                <td mat-cell *matCellDef="let row"> {{row.stillages }} </td>
+              <ng-container matColumnDef="comments">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Comments </th>
+                <td mat-cell *matCellDef="let row"> {{row.comments }} </td>
               </ng-container>
 
               <ng-container matColumnDef="pickupAddress">
@@ -160,7 +160,7 @@ export class HomeComponent {
   @ViewChild(MatSort)
   sort!: MatSort;
   
-  displayedColumns: string[] = ['id', 'submitDate', 'communicationChannel', 'stillages', 'pickupAddress', 'destinationAddress', 'plannedStartDate', 
+  displayedColumns: string[] = ['id', 'submitDate', 'communicationChannel', 'comments', 'pickupAddress', 'destinationAddress', 'plannedStartDate', 
     'actualStartDate', 'actualEndDate', 'user_id', 'status', 'details' ];
   
   loading = true;

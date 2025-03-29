@@ -38,11 +38,11 @@
                         <button mat-button matStepperPrevious>Back</button>
                     </div>
                 </mat-step>
-                <mat-step [stepControl]="shipmentForm.get('stillages')!">
-                    <ng-template matStepLabel>Stillages</ng-template>
+                <mat-step [stepControl]="shipmentForm.get('comments')!">
+                    <ng-template matStepLabel>Comments</ng-template>
                     <mat-form-field >
-                        <mat-label>Stillages</mat-label>
-                        <input matInput formControlName="stillages" />
+                        <mat-label>Comments</mat-label>
+                        <input matInput formControlName="comments" />
                     </mat-form-field>
                     <div>
                         <button mat-button matStepperPrevious>Back</button>

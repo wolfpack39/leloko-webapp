@@ -6,7 +6,7 @@ export interface Job {
     id: string;
     submitDate: Date;
     communicationChannel: string;
-    stillages?: string;
+    comments?: string;
     pickupAddress: string;
     destinationAddress: string;
     plannedStartDate: Date;
