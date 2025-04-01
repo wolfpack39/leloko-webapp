@@ -6,13 +6,13 @@
 .wrapper {
     position: relative;
     height: 10px;
-    width: 75px;
-    margin: 2em 0 1em 0em;
+    width: 80px;
+    margin: 2em 0 1.4em 0em;
     
-    border-bottom: 4px solid var(--mat-sys-primary);
+    border-bottom: 2px solid var(--mat-sys-primary);
     h1 {
         font-size: 1.2em;
-        font-weight: 600;
+        font-weight: 400;
         width: 20%;
         position: absolute;
         width: max-content;
@@ -24,8 +24,28 @@
 }
 
 .job-card {
+    display: flex;
+    justify-content: space-between;
     border: 1px solid rgba(211, 211, 211);
     border-radius: 8px;
-    padding: 2em ;
-    margin-top: 10em;
+    padding: 1em 4em;
+    margin-top: 4em;
+    width: 70%;
+    height: 250px;
+
+    .right-col {
+        display: flex;
+        display: flex;
+        flex-direction: column;
+        width: 40%;
+        .field {
+            width: 100%;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            width: 100%;
+        }
+    }
 }

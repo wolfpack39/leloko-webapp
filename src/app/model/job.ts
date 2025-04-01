@@ -14,6 +14,6 @@ export interface Job {
     actualEndDate: Date;
     client?: Client;
     vehicle?: Vehicle;
-    driver?: User;
+    user_id?: User;
     status: string;
 }

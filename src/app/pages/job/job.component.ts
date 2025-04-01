@@ -8,7 +8,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { JobService } from './job.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-job',

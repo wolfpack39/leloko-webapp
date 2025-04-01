@@ -6,26 +6,46 @@
     </button>
     <div style="padding: 1em;"  class="main-container">
         
-    
-        <div class="job-card">
-            <div class="wrapper">
-                <h1>Manage Job: {{ job?.id }}</h1>
-            </div>
-        
-            <p>Client: {{ job?.client?.name }}</p>
-            <p>Status: {{ job?.status }}</p>
-            <p>
-                Vehicle Assigned: {{ job?.vehicle }}
-            </p>
-            <p>Assigned Driver: 
-                @if (job?.driver) {
-                    {{ job?.driver?.firstName}} {{ job?.driver?.lastName }}
-                } @else {
-                    No driver assigned to this job yet!
-                }
-        
-            </p>
+        <div class="wrapper">
+            <h1>Manage Job: {{ job()?.id }}</h1>
         </div>
+        <div class="job-card">  
+        
+            <div class="left-col">
+                <p>Client: {{ job()?.client?.name }}</p>
+                <span>Status:</span>
+                <span style="color: red;"> {{ job()?.status }}</span>
+                <p>
+                    Vehicle Assigned: {{ job()?.vehicle }}
+                </p>
+                <p>Assigned Driver: 
+                    @if (job()) {
+                        {{ job()?.user_id?.firstName}} {{ job()?.user_id?.lastName }}
+                    } @else {
+                        No driver assigned to this job yet!
+                    }
+            
+                </p>
+            </div>
+            <div class="right-col">
+                <p> Assign Driver</p>
+                <form [formGroup]="driverForm">
+                    <mat-form-field class="field">
+                        <mat-label >
+                            Driver (Select Option)
+                        </mat-label>
+                        <mat-select [formControl]="driver">
+                            @for (driver of drivers(); track $index) {
+                                <mat-option [value]="driver">{{ driver.firstName }} {{ driver.lastName }}: ({{ driver.id }})</mat-option>
+                            }
+                        </mat-select>
+                        
+                    </mat-form-field>
+                    <button mat-flat-button (click)="assignDriver(driver.value!.id)">Assign</button>
+                </form>
+            </div>
+        </div>
+        
     
     </div>
 }

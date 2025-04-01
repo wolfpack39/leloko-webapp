@@ -47,13 +47,13 @@ export class DriverService {
   };
 
   getDrivers() {
-    return this.http.get<any>(this.apiUrl + 'drivers', {
+    return this.http.get<any>(this.apiUrl + 'users', {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     })
   }
 
   getDriverById(id: number) {
-    return this.http.get<any>(this.apiUrl + 'driver/' + id, {
+    return this.http.get<any>(this.apiUrl + 'getUser/' + id, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     });
   }

@@ -35,6 +35,9 @@ import { MatIconModule } from '@angular/material/icon';
         
         <div class="mat-elevation-z8">
             <table mat-table [dataSource]="dataSource" matSort>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           
               <!-- ID Column -->
               <ng-container matColumnDef="id">
@@ -86,7 +89,7 @@ import { MatIconModule } from '@angular/material/icon';
 
               <ng-container matColumnDef="user_id">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Assigned Driver </th>
-                <td mat-cell *matCellDef="let row"> {{ row.user_id }} </td>
+                <td mat-cell *matCellDef="let row"> {{ row.user_id ? row.user_id.firstName  + ' ' + row.user_id.lastName : '' }} </td>
               </ng-container>
 
               <ng-container matColumnDef="status">
@@ -98,9 +101,6 @@ import { MatIconModule } from '@angular/material/icon';
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Manage Details</th>
                 <td mat-cell *matCellDef="let row"> <button  mat-button  color="primary" (click)="getJobById(row.id)"> <mat-icon>more_horiz</mat-icon></button></td>
               </ng-container>
-          
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           
               <!-- Row shown when there is no matching data. -->
               <tr class="mat-row" *matNoDataRow>
@@ -236,3 +236,8 @@ export class HomeComponent {
   } 
 
 } 
+
+function jsonParse(): string {
+  throw new Error('Function not implemented.');
+}
+
